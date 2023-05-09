@@ -13,7 +13,7 @@ import {
 	SIGN_UP_FAILURE,
 } from '../reducers/user';
 
-function logInAPI() {
+function logInAPI(data) {
 	return axios.post('/api/login', data);
 }
 
@@ -53,10 +53,10 @@ function* logOut() {
 }
 
 function signUpAPI() {
-	return axios.post('/api/logout');
+	return axios.post('/api/signUp');
 }
 
-function* signUP() {
+function* signUp() {
 	try {
 		// const result = yield call(signUpAPI);
 		yield delay(1000);
@@ -72,6 +72,7 @@ function* signUP() {
 }
 
 function* watchLogIn() {
+	console.log('saga login listener');
 	yield takeLatest(LOG_IN_REQUEST, logIn);
 }
 
@@ -84,5 +85,6 @@ function* watchSignUp() {
 }
 
 export default function* userSaga() {
+	console.log('user saga');
 	yield all([fork(watchLogIn), fork(watchLogOut), fork(watchSignUp)]);
 }
